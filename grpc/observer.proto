@@ -1,0 +1,36 @@
+syntax = "proto3";
+package observer;
+
+service Observer {
+    rpc GetProperties (GetPropertiesRq) returns (GetPropertiesRs);
+    rpc StateChanged (StateChangedRq) returns (StateChangedRs);
+}
+
+message GetPropertiesRq {
+}
+
+message GetPropertiesRs {
+    string Key = 1;
+}
+
+message StateChangedRq {
+    repeated StateChangedSequence sequence = 1;
+}
+
+message StateChangedSequence {
+    string State = 1;
+    string PreviousState = 2;
+}
+
+message StateChangedRs {
+}
+
+enum stateType {
+    OPEN_NOTRUNNING = 0;
+    OPEN_NOTRUNNING_SUSPENDED = 1;
+    OPEN_RUNNING = 2;
+    CLOSED_COMPLETED = 3;
+    CLOSED_ABNORMALCOMPLETED = 4;
+    CLOSED_ABNORMALCOMPLETED_TERMINATED = 5;
+    CLOSED_ABNORMALCOMPLETED_ABORTED = 6;
+}
